@@ -13,7 +13,7 @@ namespace Order_Core2.Models
         {
             //连接到数据服务器
         }
-        DbSet<User_Login> User_Login { get; set; }
+        public DbSet<User_Login> User_Login { get; set; }
         #region 建立数据库数据关联
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

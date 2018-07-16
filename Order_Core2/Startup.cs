@@ -11,7 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Order_Core2.Models;
-
+using Order_Core2.APIDBModels;
+using Order_Core2.Interfaces;
+using Order_Core2.ServiceLogic;
 namespace Order_Core2
 {
     public class Startup
@@ -26,7 +28,12 @@ namespace Order_Core2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DBMYBLOGAPIContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBMYBLOGAPIDatabase")));
+            services.AddDbContext<DBMYBLOGAPIContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBMYBLOGAPIDatabase")));//新建数据库
+                                                                                                                                                 //services.AddDbContext<APIDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBMYBLOGAPIDatabase")));//连接数据库
+            #region 添加依赖注入—数据表
+            services.AddScoped<IUser_LoginRepository, User_LoginRepository>();
+            #endregion
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
